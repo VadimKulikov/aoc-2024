@@ -10,17 +10,19 @@ defmodule AOC.D2 do
           list
           |> Enum.chunk_every(2, 1)
 
+        check_diff = fn x, y -> 1 <= abs(x - y) and abs(x - y) <= 3 end
+
         is_increasing =
           chunks
           |> Enum.all?(fn
-            [x, y] -> 1 <= abs(x - y) and abs(x - y) <= 3 and x < y
+            [x, y] -> check_diff.(x, y) and x < y
             [_] -> true
           end)
 
         is_decreasing =
           chunks
           |> Enum.all?(fn
-            [x, y] -> 1 <= abs(x - y) and abs(x - y) <= 3 and y < x
+            [x, y] -> check_diff.(x, y) and y < x
             [_] -> true
           end)
 
